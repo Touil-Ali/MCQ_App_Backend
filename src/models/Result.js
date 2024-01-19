@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 
 const ResultSchema = new mongoose.Schema({
   qcmId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Number,
     ref: "Qcm",
     required: true,
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "Student",
     required: true,
   },
   score: {

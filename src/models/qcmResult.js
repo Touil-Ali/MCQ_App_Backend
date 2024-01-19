@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const qcmResultSchema = new mongoose.Schema({
   qcm: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Number,
     ref: "Qcm",
   },
   student: {

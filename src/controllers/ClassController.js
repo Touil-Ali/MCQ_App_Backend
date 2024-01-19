@@ -63,7 +63,7 @@ const updateMyClass = async (req, res) => {
 const deleteMyClass = async (req, res) => {
   const { id } = req.params;
   try {
-    const deletedMyClass = await MyClass.findByIdAndRemove(id);
+    const deletedMyClass = await MyClass.findByIdAndDelete(id);
     if (!deletedMyClass) {
       return res.status(404).send("MyClass not found");
     }

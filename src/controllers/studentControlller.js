@@ -62,8 +62,9 @@ const updateStudent = async (req, res) => {
 // Delete student by ID
 const deleteStudent = async (req, res) => {
   const { id } = req.params;
+  console.log(id);
   try {
-    const deletedStudent = await Student.findByIdAndRemove(id);
+    const deletedStudent = await Student.findByIdAndDelete(id);
     if (!deletedStudent) {
       return res.status(404).send("Student not found");
     }

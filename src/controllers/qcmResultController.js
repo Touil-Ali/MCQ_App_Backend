@@ -5,7 +5,7 @@ const createQcmResult = async (req, res) => {
   try {
     const { qcmId, studentId, score } = req.body;
     const newQcmResult = new QcmResult({
-      qcm: qcmId,
+      qcmId,
       student: studentId,
       score,
     });

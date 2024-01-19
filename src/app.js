@@ -8,8 +8,9 @@ const questionRoutes = require("./routes/questionRoutes");
 const authRoutes = require("./routes/authRoutes");
 const classRoutes = require("./routes/classRoute");
 const teacherRoutes = require("./routes/teacherRoute");
+const studentRoutes = require("./routes/studentRoute");
 const verifyToken = require("./middleware/middleware");
-// const resultRoutes = require("./routes/resultRoutes");
+const resultRoutes = require("./routes/resultRoutes");
 
 const app = express();
 
@@ -33,11 +34,12 @@ mongoose.connection.on("error", (err) => {
 });
 
 // Routes
+app.use("/students", studentRoutes);
 app.use("/qcms", qcmRoutes);
 app.use("/questions", questionRoutes);
 app.use("/auth", authRoutes);
 app.use("/classes", classRoutes);
 app.use("/teachers", teacherRoutes);
-// app.use("/results", resultRoutes);
+app.use("/results", resultRoutes);
 
 module.exports = app;

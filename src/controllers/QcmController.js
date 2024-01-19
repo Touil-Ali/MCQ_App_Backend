@@ -1,10 +1,16 @@
 const Qcm = require("../models/Qcm");
+const Student = require("../models/Student");
 
 // Create a new Qcm
 const createQcm = async (req, res) => {
   try {
     const { _id, title, startTime, endTime, myClassId } = req.body;
     console.log("id", _id);
+    console.log("myClass id", myClassId);
+    if (!_id || !title || !startTime || !endTime || !myClassId) {
+      console.log("error Creating qcm , one of fields is missing");
+      return;
+    }
     const newQcm = new Qcm({
       _id,
       title,
@@ -17,6 +23,24 @@ const createQcm = async (req, res) => {
     res.status(201).json(savedQcm);
   } catch (error) {
     console.error("Error creating Qcm", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+// fetch by Student import
+const fetchQcmsbyStudentId = async (req, res) => {
+  const studentId = req.params.studentId;
+  console.log(studentId);
+  try {
+    const student = await Student.findById(studentId);
+    if (!student) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+    const qcms = await Qcm.find({
+      myClass: student.myClass,
+    });
+    res.json(qcms);
+  } catch (error) {
+    console.error("Error Fetching qcms by Student id", error);
     res.status(500).send("Internal Server Error");
   }
 };
@@ -83,9 +107,10 @@ const updateQcm = async (req, res) => {
 
 // Delete Qcm by ID
 const deleteQcm = async (req, res) => {
-  const { id } = req.params;
+  const { qcmId } = req.params;
+  console.log(req.params);
   try {
-    const deletedQcm = await Qcm.findByIdAndRemove(id);
+    const deletedQcm = await Qcm.findOneAndDelete({ _id: qcmId });
     if (!deletedQcm) {
       return res.status(404).send("Qcm not found");
     }
@@ -103,4 +128,5 @@ module.exports = {
   updateQcm,
   deleteQcm,
   getActiveQcms,
+  fetchQcmsbyStudentId,
 };

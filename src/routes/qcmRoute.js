@@ -8,6 +8,7 @@ const QuestionController = require("../controllers/QuestionController");
 router.get("/", QcmController.getAllQcms);
 router.get("/active", QcmController.getActiveQcms);
 router.post("/create", QcmController.createQcm);
+router.get("/student/:studentId", QcmController.fetchQcmsbyStudentId);
 router.post("/:qcmId/questions", QuestionController.createQuestionbyId);
 router.get("/:qcmId/questions", QuestionController.getQuestionsByQcmId);
 router.delete("/:qcmId", QcmController.deleteQcm);
