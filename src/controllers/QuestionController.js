@@ -80,10 +80,13 @@ const createQuestionbyId = async (req, res) => {
 
 const getQuestionsByQcmId = async (req, res) => {
   const qcmId = req.params.qcmId;
+  console.log(qcmId);
 
   try {
     // Fetch questions related to the specified qcmId
-    const questions = await Question.find({ qcmId: qcmId });
+    const questions = await Question.find({ qcm: qcmId }).populate(
+      "subQuestions",
+    );
     res.json(questions);
   } catch (error) {
     console.error("Error fetching questions by qcmId", error);

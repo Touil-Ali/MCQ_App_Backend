@@ -33,11 +33,11 @@ mongoose.connection.on("error", (err) => {
 });
 
 // Routes
-app.use("/qcms", verifyToken, qcmRoutes);
+app.use("/qcms", qcmRoutes);
 app.use("/questions", questionRoutes);
 app.use("/auth", authRoutes);
-app.use("/classes", verifyToken, classRoutes);
-app.use("/teachers", verifyToken, teacherRoutes);
+app.use("/classes", classRoutes);
+app.use("/teachers", teacherRoutes);
 // app.use("/results", resultRoutes);
 
 module.exports = app;
